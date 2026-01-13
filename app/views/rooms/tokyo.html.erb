@@ -1,0 +1,5 @@
+<p>検索結果 :2件</p>
+
+<td><%= link_to room_path(id: room.id) do %>
+  <%= image_tag room.image, class: "card-img-top" if room.image.attached? %></td>
+  <% end %>

@@ -1,0 +1,25 @@
+<%= form_with model: @room, local: true do |f| %>
+  
+        <%= f.label :ルーム名 %>
+        <%= f.text_field :title %>
+
+        <%= f.label :ルーム紹介 %>
+        <%= f.text_field :content %>
+
+        <%= f.label :料金 %>
+        <%= f.number_field :money %>
+
+        <%= f.label :住所 %>
+        <%= f.text_field :live %>
+
+      <div class="form-group">
+        <label class="text-secondary">画像</label>
+        <%= f.file_field :image %>
+      </div>
+      <div class="actions1">
+      <%= f.submit "送る" %>
+      </div>
+  <% end %>
+  <%= flash[:alert] %>
+
+ 

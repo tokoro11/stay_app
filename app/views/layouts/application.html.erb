@@ -1,23 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Stay App" %></title>
+    <title>Stay2</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+  <header id="header">
+  <div class="wrapper">
+    <p class="logo"><a href="/">SAMPLE</a></p>
+    <nav>
+      <ul>
+        
+        <% if user_signed_in? %>
+      
+ <%= image_tag current_user.image, class: "card-img-top2" if current_user.image.attached? %>  
+
+        <li><%= current_user.name %></li>
+        <header class="sample01">
+    <ul>
+        <li><a href="#">Menu01 <span>▼</span></a>
+            <ul>
+                <li><%= link_to 'ルーム登録',new_room_path , method: :new %></li>
+                <li><%= link_to '予約済みルーム一覧',checks_path , method: :index %></li>
+                <li><%= link_to '登録済みルーム一覧',rooms_path , method: :index %></li>
+                <li><%= link_to '設定',users_profile_path , method: :show %></li>
+                <li><%= button_to 'サインアウト', destroy_user_session_path, method: :delete %></li>
+            </ul>
+        </li>
+    </ul>
+</header>
+        <li><%= button_to 'サインアウト', destroy_user_session_path, method: :delete %></li>
+        <% else %>
+        <li><%= button_to 'サインイン', new_user_session_path, method: :get %></li>
+        <li><%= button_to 'サインアップ', new_user_registration_path, method: :get %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+  
+</header>
 
   <body>
+  
     <%= yield %>
   </body>
 </html>

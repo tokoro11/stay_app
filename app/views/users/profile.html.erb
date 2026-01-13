@@ -1,0 +1,18 @@
+<%= form_with model: @room, local: true do |f| %>
+
+<div class="user_main">
+  <div class="main">
+    <h1>プロフィール</h1>
+    <label class="text-secondary">画像</label><br>
+        <%= f.file_field :image %>
+
+        <%= f.label :name %><br />
+        <%= form.text_field :name %>
+    <%= @user.name %>    
+
+    <%= f.label :自己紹介 %><br />
+    <%= form.text_field :introduction %>
+  </div>
+  <%= form.submit %>
+  <%= render 'side_menu' %>
+</div>

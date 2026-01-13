@@ -1,0 +1,42 @@
+<h1>部屋 検索</h1>
+<%= form_with url: search_rooms_path, method: :get, local: true do |f| %>
+  <%= f.text_field :live %>
+  <%= f.submit :search %>
+<% end %>
+<table>
+    <thead>
+       <tr>
+            <th>ルーム画像</th>
+            <th>ルーム名</th>
+            <th>ルーム紹介</th>
+            <th>料金</th>
+            <th>作成日</th>
+            
+        </tr>  
+<%
+=begin%>
+ <%=end%> 
+<%
+=end%>
+    </thead>
+
+    <tbody>
+<% @rooms.each do |room| %>
+                <tr>
+                    <td><%= link_to room_path(id: room.id) do %>
+                    <%= image_tag room.image, class: "card-img-top" if room.image.attached? %></td>
+                    <% end %>
+
+                
+                    <td><%= link_to room.title, room_path(id: room.id) %></td> 
+                    <td><%= room.content %></td>
+                    <td><%= room.money %></td>
+                    <td><%= room.created_at&.strftime('%Y年%m月%d日 %H時%M分') %></td>
+                    
+                    
+                </tr>
+                
+                </div>
+<% end %>
+    </tbody>
+</table>

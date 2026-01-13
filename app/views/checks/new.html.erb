@@ -1,0 +1,40 @@
+
+
+<h1>予約フォーム</h1>
+
+<ol class="nav">
+	<li>1.入力</li>
+	<li class="current">2.確認</li>
+	<li>3.完了</li>
+</ol>
+
+<dl>
+	<dt>開始日</dt>
+	<dd><%= @check.start_at %></dd>
+	<dt>終了日</dt>
+	<dd><%= @check.end_at %></dd>
+	<dt>人数</dt>
+	<dd><%= @check.people %></dd>
+	<h6 class="reservations-new-check-content">使用日数 : <%= @check.use_date %></h6>
+	<label for="total_amount">合計金額</label>
+	¥<%= @check.totalmoney %>
+	<p class="reservations-new-check-content">上記内容でよろしければ「予約を確定」を押してください</p>
+</dl>
+
+<%= form_for @check, method: :get, url: back_checks_path do |form| %>
+	<%= form.hidden_field :start_at %>
+	<%= form.hidden_field :end_at %>
+
+	<%= form.hidden_field :people %>
+	<%= form.submit '入力画面に戻る' %>
+<% end %>
+
+<%= form_with model: @check, method: :post, url: checks_path do |form| %>
+	<%= form.hidden_field :start_at, :value => @check.start_at %>
+	<%= form.hidden_field :end_at, :value => @check.end_at %>
+	<%= form.hidden_field :people, :value => @check.people %>
+	<%= form.hidden_field :use_date, :value => @check.use_date %>
+	<%= form.hidden_field :totalmoney, :value => @check.totalmoney %>
+	<%= form.hidden_field :room_id, :value => @check.room_id %>
+	<%= form.submit '送信する' %>
+<% end %>

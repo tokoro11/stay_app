@@ -1,0 +1,40 @@
+body>
+  <div class="main_container">
+    <div class="information">
+    <h2>登録済みルーム一覧</h2>
+
+</div>
+    <table>
+    <thead>
+        <tr>
+            <th>ルーム画像</th>
+            <th>ルーム名</th>
+            <th>ルーム紹介</th>
+            <th>料金</th>
+            <th>作成日</th>
+            
+        </tr>
+    </thead>
+
+    <tbody>
+<% @rooms.each do |room| %>
+                <tr>
+                    <td><%= link_to room_path(id: room.id) do %>
+                    <%= image_tag room.image, class: "card-img-top" if room.image.attached? %></td>
+                    <% end %>
+
+                
+                    <td><%= link_to room.title, room_path(id: room.id) %></td> 
+                    <td><%= room.content %></td>
+                    <td><%= room.money %></td>
+                    <td><%= room.created_at&.strftime('%Y年%m月%d日 %H時%M分') %></td>
+                    
+                    
+                </tr>
+                
+                </div>
+<% end %>
+    </tbody>
+</table>
+
+

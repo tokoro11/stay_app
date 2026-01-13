@@ -1,0 +1,14 @@
+<div class="user_main">
+  <div class="main">
+    <h1>アカウント</h1>
+    <dl>
+      <dt>メールアドレス</dt>
+      <dd><%= current_user.email %></dd>
+      <dt>パスワード</dt>
+      <dd><%= '*' * 6 %></dd>
+    </dl>
+    <%= link_to '編集', edit_user_registration_path %>
+  </div>
+  <%= render 'side_menu' %>
+  
+</div>

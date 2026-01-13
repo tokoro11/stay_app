@@ -1,0 +1,39 @@
+body>
+  <div class="check_container">
+    <div class="check_information">
+    <h2>予約済みルーム一覧</h2>
+
+</div>
+    <table>
+    <thead>
+        <tr>
+            <th>ルーム画像</th>
+            <th>ルーム名</th>
+            <th>ルーム紹介</th>
+            <th>料金</th>
+            <th>開始日</th>
+            <th>終了日</th>
+            <th>予約確定日</th>
+        </tr>
+    </thead>
+
+    <tbody>
+<% @checks.each do |check| %>
+                <tr>
+                    <td><%= link_to room_path(id: check.room.id) do %>
+                    <%= image_tag check.room.image, class: "card-img-top" if check.room.image.attached? %></td>
+                    <% end %>
+
+                
+                    <td><%= link_to check.room.title, room_path(id: check.room.id) %></td> 
+                    <td><%= check.room.content %></td>
+                    <td><%= check.totalmoney %></td>
+                    <td><%= check.start_at %></td>
+                    <td><%= check.end_at %></td>
+                    <td><%= check.created_at %></td>
+                </tr>
+                
+                </div>
+<% end %>
+    </tbody>
+</table>
