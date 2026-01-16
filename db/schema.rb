@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_23_081416) do
+ActiveRecord::Schema[7.0].define(version: 2026_01_16_015521) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -55,6 +55,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_23_081416) do
     t.index ["room_id"], name: "index_checks_on_room_id"
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "room_id", null: false
+    t.date "start_at"
+    t.date "end_at"
+    t.integer "people"
+    t.integer "total_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_reservations_on_room_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
   create_table "reserves", force: :cascade do |t|
     t.string "reserve_date"
     t.string "name"
@@ -95,4 +108,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_23_081416) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "checks", "rooms"
+  add_foreign_key "reservations", "rooms"
+  add_foreign_key "reservations", "users"
 end

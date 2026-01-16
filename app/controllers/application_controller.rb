@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
   # ログイン後のリダイレクト先
   def after_sign_in_path_for(resource_or_scope)
-    if request.referrer.include?("sign_up")
+    if request.referrer&.include?("sign_up")
       users_profile_path
     else
       root_path

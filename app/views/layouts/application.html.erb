@@ -25,7 +25,7 @@
         <li><a href="#">Menu01 <span>▼</span></a>
             <ul>
                 <li><%= link_to 'ルーム登録',new_room_path , method: :new %></li>
-                <li><%= link_to '予約済みルーム一覧',checks_path , method: :index %></li>
+                <li><%= link_to '予約済みルーム一覧', reservations_path %></li>
                 <li><%= link_to '登録済みルーム一覧',rooms_path , method: :index %></li>
                 <li><%= link_to '設定',users_profile_path , method: :show %></li>
                 <li><%= button_to 'サインアウト', destroy_user_session_path, method: :delete %></li>
