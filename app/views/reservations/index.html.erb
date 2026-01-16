@@ -1,39 +1,37 @@
-body>
-  <div class="check_container">
-    <div class="check_information">
-    <h2>予約済みルーム一覧</h2>
+<h1>予約一覧</h1>
 
-</div>
-    <table>
-    <thead>
-        <tr>
-            <th>ルーム画像</th>
-            <th>ルーム名</th>
-            <th>ルーム紹介</th>
-            <th>料金</th>
-            <th>開始日</th>
-            <th>終了日</th>
-            <th>予約確定日</th>
-        </tr>
-    </thead>
+<table>
+  <thead>
+    <tr>
+      <th>施設画像</th>
+      <th>施設名</th>
+      <th>宿泊日</th>
+      <th>人数</th>
+      <th>合計金額</th>
+      <th>予約確定日時</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td>
+          <% if reservation.room.image.attached? %>
+            <%= image_tag reservation.room.image.variant(resize_to_limit: [150, 150]).processed, alt: reservation.room.title %>
+          <% else %>
+            <span>画像なし</span>
+          <% end %>
+        </td>
+        <td><%= reservation.room.title %></td>
+        <td><%= reservation.start_at.strftime("%Y/%m/%d") %> ～ <%= reservation.end_at.strftime("%Y/%m/%d") %></td>
+        <td><%= reservation.people %> 人</td>
+        <td>¥<%= reservation.total_price %></td>
+        <td><%= reservation.created_at.in_time_zone('Tokyo').strftime("%Y/%m/%d %H:%M") rescue '-' %></td>
 
-    <tbody>
-<% @checks.each do |check| %>
-                <tr>
-                    <td><%= link_to room_path(id: check.room.id) do %>
-                    <%= image_tag check.room.image, class: "card-img-top" if check.room.image.attached? %></td>
-                    <% end %>
-
-                
-                    <td><%= link_to check.room.title, room_path(id: check.room.id) %></td> 
-                    <td><%= check.room.content %></td>
-                    <td><%= check.totalmoney %></td>
-                    <td><%= check.start_at %></td>
-                    <td><%= check.end_at %></td>
-                    <td><%= check.created_at %></td>
-                </tr>
-                
-                </div>
-<% end %>
-    </tbody>
+        <td>
+          <%= button_to "削除", reservation_path(reservation), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

@@ -1,30 +1,38 @@
 <h1>予約詳細</h1>
 
-<div class="reservation-detail">
-  <p>
-    <strong>施設名：</strong>
-    <%= @reservation.room.title %>
-  </p>
+<div class="card mb-3" style="max-width: 600px;">
+  <% if @reservation.room.image.attached? %>
+    <%= image_tag @reservation.room.image.variant(resize_to_limit: [600, 400]), class: "card-img-top" %>
+  <% else %>
+    <%= image_tag "no_image.png", width: 600, height: 400 %>
+  <% end %>
 
-  <p>
-    <strong>チェックイン：</strong>
-    <%= @reservation.start_at.strftime("%Y/%m/%d") %>
-  </p>
+  <div class="card-body">
+    <h5 class="card-title"><%= @reservation.room.title %></h5>
+    <p class="card-text"><%= @reservation.room.content %></p>
 
-  <p>
-    <strong>チェックアウト：</strong>
-    <%= @reservation.end_at.strftime("%Y/%m/%d") %>
-  </p>
+    <dl class="row">
+      <dt class="col-sm-4">チェックイン</dt>
+      <dd class="col-sm-8"><%= @reservation.start_at.strftime("%Y/%m/%d") %></dd>
 
-  <p>
-    <strong>人数：</strong>
-    <%= @reservation.people %> 人
-  </p>
+      <dt class="col-sm-4">チェックアウト</dt>
+      <dd class="col-sm-8"><%= @reservation.end_at.strftime("%Y/%m/%d") %></dd>
 
-  <p>
-    <strong>予約確定日時：</strong>
-    <%= @reservation.created_at.strftime("%Y/%m/%d %H:%M") %>
-  </p>
+      <dt class="col-sm-4">人数</dt>
+      <dd class="col-sm-8"><%= @reservation.people %> 名</dd>
+
+      <dt class="col-sm-4">宿泊日数</dt>
+      <dd class="col-sm-8"><%= (@reservation.end_at - @reservation.start_at).to_i %> 日</dd>
+
+      <dt class="col-sm-4">合計金額</dt>
+      <dd class="col-sm-8">¥<%= number_with_delimiter(@reservation.total_price || 0) %></dd>
+
+      <dt class="col-sm-4">予約確定日時</dt>
+<dd class="col-sm-8">
+  <%= @reservation.created_at.strftime("%Y/%m/%d %H:%M") %>
+
+    </dl>
+
+    <%= link_to "予約一覧に戻る", reservations_path, class: "btn btn-secondary" %>
+  </div>
 </div>
-
-<%= link_to "予約一覧へ戻る", reservations_path %>

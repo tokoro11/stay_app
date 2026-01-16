@@ -7,7 +7,7 @@
         <%= f.text_field :content %>
 
         <%= f.label :料金 %>
-        <%= f.number_field :money %>
+        <%= f.number_field :money, min: 1 %>
 
         <%= f.label :住所 %>
         <%= f.text_field :live %>

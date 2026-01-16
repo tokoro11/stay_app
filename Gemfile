@@ -76,4 +76,4 @@ end
 
 gem 'devise' 
 gem 'mini_magick'
-gem 'image_processing'
+gem 'image_processing', '~> 1.12'

@@ -8,15 +8,13 @@ Bundler.require(*Rails.groups)
 
 module Stay2
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    config.active_storage.variant_processor = :mini_magick
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    # 表示用タイムゾーン（日本時間）
+    config.time_zone = 'Tokyo'
+
+    # DBは UTC で保存（Rails標準）
+    config.active_record.default_timezone = :utc
   end
 end

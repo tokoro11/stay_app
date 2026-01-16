@@ -3,6 +3,10 @@
   <%= f.text_field :live %>
   <%= f.submit :search %>
 <% end %>
+<% if @rooms.present? %>
+  <p><%= params[:live].present? ? "#{params[:live]}の検索結果：" : "全件：" %> <%= @rooms.count %> 件</p>
+<% end %>
+
 <table>
     <thead>
        <tr>

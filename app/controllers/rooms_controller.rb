@@ -10,7 +10,7 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    @check = Check.new
+    @reservation = Reservation.new(room_id: @room.id)
   end
 
   def create
@@ -18,7 +18,7 @@ class RoomsController < ApplicationController
     if @room.save
       redirect_to room_path(@room) #リダイレクト先をshowに変更
     else
-      flash[:alert] = 'メッセージを入力してください。'
+      flash.now[:alert] = "必須項目を正しく入力してください"
       render :new
     end
   end
@@ -29,6 +29,7 @@ class RoomsController < ApplicationController
     else
       @rooms = Room.none
     end
+      @total_count = @rooms.count
   end
 
 

@@ -16,28 +16,23 @@
       <ul>
         
         <% if user_signed_in? %>
-      
- <%= image_tag current_user.image, class: "card-img-top2" if current_user.image.attached? %>  
-
-        <li><%= current_user.name %></li>
-        <header class="sample01">
-    <ul>
-        <li><a href="#">Menu01 <span>▼</span></a>
-            <ul>
-                <li><%= link_to 'ルーム登録',new_room_path , method: :new %></li>
-                <li><%= link_to '予約済みルーム一覧', reservations_path %></li>
-                <li><%= link_to '登録済みルーム一覧',rooms_path , method: :index %></li>
-                <li><%= link_to '設定',users_profile_path , method: :show %></li>
-                <li><%= button_to 'サインアウト', destroy_user_session_path, method: :delete %></li>
-            </ul>
-        </li>
+  <li class="user-menu">
+    <div class="user-name" onclick="this.nextElementSibling.classList.toggle('hidden')">
+      <%= image_tag current_user.image, class: "card-img-top2" if current_user.image.attached? %>
+      <%= current_user.name %> <span>▼</span>
+    </div>
+    <ul class="dropdown hidden">
+      <li><%= link_to 'ルーム登録', new_room_path %></li>
+      <li><%= link_to '予約済みルーム一覧', reservations_path %></li>
+      <li><%= link_to '登録済みルーム一覧', rooms_path %></li>
+      <li><%= link_to '設定', users_profile_path %></li>
+      <li><%= button_to 'サインアウト', destroy_user_session_path, method: :delete %></li>
     </ul>
-</header>
-        <li><%= button_to 'サインアウト', destroy_user_session_path, method: :delete %></li>
-        <% else %>
-        <li><%= button_to 'サインイン', new_user_session_path, method: :get %></li>
-        <li><%= button_to 'サインアップ', new_user_registration_path, method: :get %></li>
-        <% end %>
+  </li>
+<% else %>
+  <li><%= link_to 'サインイン', new_user_session_path %></li>
+  <li><%= link_to 'サインアップ', new_user_registration_path %></li>
+<% end %>
       </ul>
     </nav>
   </div>

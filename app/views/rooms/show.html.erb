@@ -1,45 +1,30 @@
 <div class="text-center">
-  <div class="card room-card ">
+  <div class="card room-card">
     <%= image_tag @room.image, class: "card-img-top" if @room.image.attached? %>
     <div class="card-body">
-      <div class="room-name">
-        <%= @room.title %>
-        <%= @room.live %>
-        <%= @room.content %>
-      </div>
-      <div class="room-content">
-
-      </div>
-      <hr>
-      <p class="card-text">
-        
-        <div class="room-text d-flex justify-content-start">
-          
-        </div>
-      </p>
+      <h2><%= @room.title %></h2>
+      <p><%= @room.live %></p>
+      <p><%= @room.content %></p>
+      <p>1泊料金: ¥<%= @room.money %></p>
     </div>
   </div>
 </div>
 
 <h1>予約フォーム</h1>
 
-<ol class="nav">
-	<li class="current">1.入力</li>
-	<li>2.確認</li>
-	<li>3.完了</li>
-</ol>
-<%= form_for @check, method: :get, url: new_check_path do |form| %>
-	<dl>
-    ¥<%= @room.money %> 	
-		<dt>開始日</dt>
-    <%= form.date_field :start_at %>
-    <dt>終了日</dt>
-		<%= form.date_field :end_at %>
-		<dt>人数</dt>
-		<dd><%= form.number_field :people %></dd>
-    
-		<dd><%= form.hidden_field :room_id, :value => @room.id %></dd>
-	</dl>
+<%= form_for @reservation, url: room_reservations_path(@room) do |f| %>
+  <dl>
+    <dt>開始日</dt>
+    <dd><%= f.date_field :start_at %></dd>
 
-	<%= form.submit '確認画面へ' %>
+    <dt>終了日</dt>
+    <dd><%= f.date_field :end_at %></dd>
+
+    <dt>人数</dt>
+    <dd><%= f.number_field :people %></dd>
+
+    <%= f.hidden_field :room_id, value: @room.id %>
+  </dl>
+
+  <%= f.submit "確認画面へ", class: "btn btn-primary" %>
 <% end %>
